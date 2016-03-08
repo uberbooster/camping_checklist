@@ -51,22 +51,20 @@ app.controller('CampingChecklistController', function($scope){
                     'Washcloth'
                   ],
   };
+  $scope.currentItem = {};
 
-  $scope.saveChecklist = function(category){
-    var campingChecklistItem = $scope.currentItem[category];
-    console.log($scope.currentItem[category]);
-    $scope.campingChecklist[category].push(campingChecklistItem);
+  $scope.saveChecklist = function(category, newItem){
+    $scope.campingChecklist[category].push(newItem);
     $scope.currentItem[category] = "";
   };
   $scope.removeItem = function(category,singleItem){
     var index = $scope.campingChecklist[category].indexOf(singleItem);
     $scope.campingChecklist[category].splice(index, 1);
   }
-  $scope.editItem = function(category,singleItem){
-    console.log($scope.currentItem);
+  $scope.editItem = function(category,singleItem, newItem){
     var index = $scope.campingChecklist[category].indexOf(singleItem);
-    $scope.campingChecklist[category].splice(index, 1, $scope.currentItem);
-    $scope.currentItem = "";
+    $scope.campingChecklist[category].splice(index, 1, newItem);
+    $scope.currentItem[category] = "";
   }
   $scope.moveUp = function(category,singleItem){
     var index = $scope.campingChecklist[category].indexOf(singleItem);
