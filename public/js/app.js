@@ -52,6 +52,7 @@ app.controller('CampingChecklistController', function($scope){
                   ],
   };
   $scope.currentItem = {};
+  var checklistSelected=true;
 
   $scope.saveChecklist = function(category, newItem){
     $scope.campingChecklist[category].push(newItem);

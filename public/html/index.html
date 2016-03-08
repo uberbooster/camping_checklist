@@ -5,6 +5,7 @@
   <title>Camping Checklist</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+  <link rel="stylesheet" href="css/styles.css">
 <!-- DROPDOWN HTML --->
   <link rel="stylesheet" href="css/dropdown.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css">
@@ -21,18 +22,47 @@
 </head>
 <body>
   <div class="container">
+    <div class="row">
+      <h2 class='well' ng-if='checklistSelected!=true'>Which type of camping checklist do you want?</h2><p></p>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <button class='btn btn-primary btn-block' type="button" name="button">Comprehensive</button>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <button class='btn btn-primary btn-block' type="button" name="button">Basic</button>
+      </div>
+      <div class="col-md-4 col-sm-4 col-xs-12">
+        <button class='btn btn-primary btn-block' type="button" name="button">Credit Card Camping</button>
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div class="container">
     <div ng-controller="CampingChecklistController">
+      <div class="row">
+        <div class="col-md-offset-6 col-md-6 col-sm-offset-8 col-sm-4 col-xs-offset-8 col-xs-4">
+          <div id="fixed" class='panel panel-default'>
+            <div class="panel-heading">Options</div>
+              <div class="panel-body">
+              <button class='btn btn-info' ng-click='selectAll()'>Select All</button>
+              <button class="btn btn-info">Deselect All</button>
+              <button class="btn btn-info">Show Only Selected</button>
+              <button class="btn btn-info">Delete Selected</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row" ng-repeat='(category, list) in campingChecklist'><!--The  -->
-        <div class="form-group">
-          <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-8 col-xs-8">
+          <div class="form-group">
             <input type="text" class="form-control" placeholder="What do you need to add/edit in {{category}}?" ng-model='currentItem[category]'>
             <button class="btn btn-primary btn-block" ng-click='saveChecklist(category, currentItem[category])' type="button">Save </button>
           </div>
-        </div>
-        <div class="col-md-6 col-sm-12">
           <ul>
-            <li class='well no-dot' ng-repeat="singleItem in list">
-              {{category}}: {{singleItem}}
+            <li class='well-sm no-dot' ng-repeat="singleItem in list">
+              <input type="checkbox" checklist-model="selected.listItems" checklist-value="listItem">
+              {{category}}: <strong>{{singleItem}}</strong>
               <button class="btn btn-info-btn-sm pull-right" ng-click='editItem(category, singleItem, currentItem[category])'>Edit</button>
               <button class="btn btn-danger btn-sm pull-right" type="button" ng-click='removeItem(category, singleItem)'>X</button>
               <span class="glyphicon glyphicon-arrow-up pull-right" ng-if='$index != 0' ng-click='moveUp(category, singleItem)'></span>
