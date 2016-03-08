@@ -26,7 +26,7 @@ app.controller('CampingChecklistController', function($scope){
                 'Tire patch kit',
                 'Toolkit',
                 'Totes',
-                'Windshield cleaner',
+                'Windshield cleaner'
               ],
     personalStuff: ['Antihistamines',
                     'Brush',
@@ -48,27 +48,34 @@ app.controller('CampingChecklistController', function($scope){
                     'Sunglasses',
                     'Toothbrush & toothpaste',
                     'Towel(s)',
-                    'Washcloth',
+                    'Washcloth'
                   ],
   };
-  console.log($scope.campingChecklist.motoStuff[4]);
-  $scope.saveChecklist = function(){
-    var campingChecklistItem = $scope.currentItem;
-    $scope.campingChecklist.push(campingChecklistItem);
-    $scope.currentItem = "";
+
+  $scope.saveChecklist = function(category){
+    var campingChecklistItem = $scope.currentItem[category];
+    console.log($scope.currentItem[category]);
+    $scope.campingChecklist[category].push(campingChecklistItem);
+    $scope.currentItem[category] = "";
   };
-  $scope.removeTodo = function(singleItem){
-    var index = $scope.campingChecklist.indexOf(singleItem);
-    $scope.campingChecklist.splice(index, 1);
+  $scope.removeItem = function(category,singleItem){
+    var index = $scope.campingChecklist[category].indexOf(singleItem);
+    $scope.campingChecklist[category].splice(index, 1);
   }
-  $scope.editItem = function(singleItem){
-    var index = $scope.campingChecklist.indexOf(singleItem);
-    $scope.campingChecklist.splice(index, 1, $scope.currentItem);
+  $scope.editItem = function(category,singleItem){
+    console.log($scope.currentItem);
+    var index = $scope.campingChecklist[category].indexOf(singleItem);
+    $scope.campingChecklist[category].splice(index, 1, $scope.currentItem);
     $scope.currentItem = "";
   }
-  $scope.moveUp = function(singleItem){
-    var index = $scope.campingChecklist.indexOf(singleItem);
-    $scope.campingChecklist.splice(index, 1);
-    $scope.campingChecklist.splice(index-1, 0, singleItem);
+  $scope.moveUp = function(category,singleItem){
+    var index = $scope.campingChecklist[category].indexOf(singleItem);
+    $scope.campingChecklist[category].splice(index, 1);
+    $scope.campingChecklist[category].splice(index-1, 0, singleItem);
+  }
+  $scope.moveDown = function(category,singleItem){
+    var index = $scope.campingChecklist[category].indexOf(singleItem);
+    $scope.campingChecklist[category].splice(index, 1);
+    $scope.campingChecklist[category].splice(index+1, 0, singleItem);
   }
 });
